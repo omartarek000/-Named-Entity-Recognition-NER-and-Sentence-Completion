@@ -33,13 +33,3 @@ jobs:
             exit 1
           fi
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    if: success()  # Only run deploy if the build was successful
-    steps:
-      - uses: actions/checkout@v3
-      - name: Deploy to Streamlit Cloud 
-        uses: streamlit/deploy@main
-        with:
-          env_name: -Named-Entity-Recognition-NER-and-Sentence-Completion
