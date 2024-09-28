@@ -1,0 +1,33 @@
+name: Streamlit App Workflow
+
+on:
+  push:
+    branches: 
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python environment
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Build Streamlit app
+        run: streamlit run main.py --server.port 8501 --server.headless True
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v3
+      - name: Deploy to Streamlit Cloud 
+        uses: streamlit/deploy@main
+        with:
+          env_name: main
