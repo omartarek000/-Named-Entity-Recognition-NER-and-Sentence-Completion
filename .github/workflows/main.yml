@@ -1,0 +1,25 @@
+name: Build and Deploy Streamlit App
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python environment
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+    - name: Build Streamlit app
+      run: streamlit run app.py
+    - name: Deploy to Streamlit Cloud (optional)
+      uses: streamlit/deploy@main
+      with:
+        # Replace with your Streamlit Cloud credentials
+        env_name: your_streamlit_cloud_env
