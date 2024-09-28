@@ -3,7 +3,7 @@
 
 This project provides a web application that performs **Named Entity Recognition (NER)** and **Sentence Completion** using state-of-the-art natural language processing models from Hugging Face. The application is built with Streamlit to provide an interactive and user-friendly interface.
 
-🔗 **[Visit the Application](https://dkwwja6cfnrcuqcfbaqf7c.streamlit.app/)**
+🔗 **[Visit the Application](https://hyzpr8frq3artkxucymxsc.streamlit.app/)**
 
 ## Features
 
