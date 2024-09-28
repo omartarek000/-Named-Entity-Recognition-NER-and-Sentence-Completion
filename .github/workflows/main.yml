@@ -20,7 +20,9 @@ jobs:
           pip install -r requirements.txt
 
       - name: Build Streamlit app
-        run: streamlit run main.py --server.port 8501 --server.headless False
+        env:                   # Add this to specify environment variables
+          STREAMLIT_SERVER_GATHER_USAGE_STATS: false
+        run: streamlit run main.py --server.port 8501 --server.headless True
 
   deploy:
     runs-on: ubuntu-latest
