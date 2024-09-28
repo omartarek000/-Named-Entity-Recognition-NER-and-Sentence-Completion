@@ -20,7 +20,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Build Streamlit app
-        run: streamlit run main.py --server.port 8501 --server.headless True
+        run: streamlit run main.py --server.port 8501 --server.headless False
 
   deploy:
     runs-on: ubuntu-latest
