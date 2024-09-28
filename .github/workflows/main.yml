@@ -2,7 +2,7 @@ name: Streamlit App Workflow
 
 on:
   push:
-    branches: 
+    branches:
       - main
 
 jobs:
@@ -20,16 +20,26 @@ jobs:
           pip install -r requirements.txt
 
       - name: Build Streamlit app
-        env:                   # Add this to specify environment variables
-          STREAMLIT_SERVER_GATHER_USAGE_STATS: false
-        run: streamlit run main.py --server.port 8501 --server.headless True
+        run: |
+          nohup streamlit run main.py --server.port 8501 --server.headless True &
+          sleep 10  # Wait for a few seconds to allow the app to start
+
+      - name: Check if Streamlit app is running
+        run: |
+          if curl -s --head  --request GET http://localhost:8501 | grep "200 OK" > /dev/null; then 
+            echo "Streamlit app is running."
+          else
+            echo "Streamlit app is not running."
+            exit 1
+          fi
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
+    if: success()  # Only run deploy if the build was successful
     steps:
       - uses: actions/checkout@v3
       - name: Deploy to Streamlit Cloud 
         uses: streamlit/deploy@main
         with:
-          env_name: main
+          env_name: -Named-Entity-Recognition-NER-and-Sentence-Completion
